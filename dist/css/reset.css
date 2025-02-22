@@ -27,7 +27,7 @@ html, body, .wrap {
     height: 100%;
 }
 
-.wrap {
+.wrapper {
     width: 1024px;
     margin: 0 auto;
     padding: 20px;
