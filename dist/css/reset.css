@@ -1,0 +1,51 @@
+html, body, div, span, h1, h2, p, a, img, strong, ul, li, button, footer, header {
+    margin: 0; 
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+}
+
+*, :after, :before {
+    -webkit-box-sizing: border-box; 
+    box-sizing: border-box;
+}
+
+a, button, div {
+    outline: none;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    border: none;
+}
+
+
+html, body, .wrap {
+    height: 100%;
+}
+
+.wrap {
+    width: 1024px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.ship, .icon-field, .btn-play {
+    background: url('../images/sprite.png') no-repeat;
+}
+
+/* typography  */
+
+body {
+    font: normal 18px Roboto;
+    line-height: 24px;
+    color: #4530af;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
