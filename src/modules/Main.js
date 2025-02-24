@@ -1,5 +1,6 @@
 import Field from "./Field";
 
+
 export default  class Main {
 
     constructor() {
@@ -23,14 +24,62 @@ export default  class Main {
         this.buttonNewGame = this.getElement('newgame');
 
         // Initialize Field instance for the human player
+        if(!this.humanfield) throw new Error('Element #field_human not found');
         this.human = new Field(this.humanfield);
 
+        window.human = this.human;
+        window.buttonPlay = this.buttonPlay;
+
+        const typePlacement = this.getElement('type-placement');
+        if  (typePlacement) {
+            typePlacement.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'SPAN') return;
+
+                this.buttonPlay.hidden = true;
+                this.human.cleanField();
+
+                const type = e.target.dataset.target;
+
+                // use arrow functions to preserve 'this' as Main instance
+
+                const typeGeneration = {
+                    random: () => {
+                        this.shipsCollection.hidden = true;
+                        this.human.randomLocationShips();
+                    },
+                    manually: () => {
+                        let value = !this.shipsCollection.hidden;
+
+                        if(this.shipsCollection.children.length > 1) {
+                            this.shipsCollection.removeChild(this.shipsCollection.lastChild)
+                        }
+
+                        if (!value) {
+                            if (!this.initialShips) {
+                                console.error('initialShips not found in DOM');
+                                return;
+                            }
+                            this.initialShipsClone = this.initialShips.cloneNode(true);
+                            this.shipsCollection.appendChild(this.initialShipsClone);
+                            this.initialShipsClone.hidden = false;
+                        }
+                    }
+                };
+
+                typeGeneration[type]?.();
+            });
+        } else {
+            console.warn("Element #type-placement not found");
+        }
         
     }
-        
+   
+
     // function to get an element by ID
     getElement (id) {
-        return document.getElementById(id);
+        const element = document.getElementById(id);
+        if(!element) console.warn(`Element #${id} not found`);
+        return element;
     }
 
     // Function to get the coordinates of an element
@@ -44,16 +93,5 @@ export default  class Main {
         };
     }
 
-    // const typeGeneration = {
-    //     random() {
-    //         shipsCollection.hidden = true;
-    //         human.randomLocationShips();
-    //     },
-    //     manually() {
-
-    //     }
-    // };
-
-    // typeGeneration[type]();
    
 }
