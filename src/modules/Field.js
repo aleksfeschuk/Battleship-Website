@@ -1,6 +1,4 @@
 import Ships from "./Ships";
-import Placement from "./Placement";
-
 
 export default class Field {
     static FIELD_SIDE = 330;
@@ -71,7 +69,7 @@ export default class Field {
     }
 
 
-    static getRandom = n => Math.floor(Math.random() * (n + 1));
+    static getRandom = n => Math.floor(Math.random() * n);
 
 
     // Generates random coordinates for ship placement
@@ -81,10 +79,10 @@ export default class Field {
         do { 
             const kx = Field.getRandom(1);
             const ky = 1 - kx;
-
-            const x = Field.getRandom(10 - decks * kx - 1);
-            const y = Field.getRandom(10 - decks * ky - 1);
-
+            const maxX = 9 - decks * kx;
+            const maxY = 9 - decks * ky;
+            const x = Field.getRandom(maxX);
+            const y = Field.getRandom(maxY);
             obj = { x, y, kx, ky };
         } while (!this.checkLocationShip(obj, decks));
 

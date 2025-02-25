@@ -1,4 +1,5 @@
 import Field from "./Field";
+import Placement from "./Placement";
 
 
 export default  class Main {
@@ -26,9 +27,11 @@ export default  class Main {
         // Initialize Field instance for the human player
         if(!this.humanfield) throw new Error('Element #field_human not found');
         this.human = new Field(this.humanfield);
+        this.placement = new Placement(this.humanfield);
 
         window.human = this.human;
         window.buttonPlay = this.buttonPlay;
+        window.startGame = this.startGame;
 
         const typePlacement = this.getElement('type-placement');
         if  (typePlacement) {
@@ -62,6 +65,7 @@ export default  class Main {
                             this.initialShipsClone = this.initialShips.cloneNode(true);
                             this.shipsCollection.appendChild(this.initialShipsClone);
                             this.initialShipsClone.hidden = false;
+                            this.placement.setObserver();
                         }
                     }
                 };

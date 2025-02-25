@@ -29,8 +29,11 @@ export default class Ships {
         while(k < this.decks) {
             let i = this.x + k * this.kx;
             let j = this.y + k * this.ky;
-            this.player.matrix[i][j] = 1;
-            this.arrDecks.push([i, j]);
+
+            if ( i >= 0 && i < 10 && j >= 0 && j < 10) {
+                this.player.matrix[i][j] = 1;
+                this.arrDecks.push([i, j]);  
+            }
             k++;
         }
 
